@@ -124,6 +124,7 @@ function setQuestion(id) {
         ans4Btn.textContent = questions[id].answers[3];
     }
 }
+
 // function to check answer and then move to next question
 function checkAnswer(event) {
     event.preventDefault();
@@ -204,3 +205,37 @@ function clearScores() {
     localStorage.clear();
     scoreListEl.innerHTML="";
 }
+
+// EventListeners
+// Start timer and display first question when click start quiz
+startBtn.addEventListener("click", startQuiz);
+
+// Check answers loop
+ansBtn.forEach(item => {
+    item.addEventListener('click', checkAnswer);
+});
+
+// Add score
+submitScrBtn.addEventListener("click", addScore);
+
+// Go Back Button
+goBackBtn.addEventListener("click", function () {
+    highscoresEl.style.display = "none";
+    introEl.style.display = "block";
+    secondsLeft = 75;
+    timeEl.textContent = `Time:${secondsLeft}s`;
+});
+
+// Clear the scores
+clearScrBtn.addEventListener("click", clearScores);
+
+// View/Hide High Scores Button
+viewScrBtn.addEventListener("click", function () {
+    if (highscoresEl.style.display === "none") {
+        highscoresEl.style.display = "block";
+    } else if (highscoresEl.style.display === "block") {
+        highscoresEl.style.display = "none";
+    } else {
+        return alert("No scores to show.");
+    }
+});
